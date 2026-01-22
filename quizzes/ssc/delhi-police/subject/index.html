@@ -21,6 +21,21 @@ header{
   text-align:center;
   color:#fff;
 }
+#searchBox{
+  width:100%;
+  max-width:420px;
+  padding:12px 16px;
+  margin:0 auto 25px;
+  display:block;
+  border-radius:25px;
+  border:1.5px solid #c7d2fe;
+  font-size:15px;
+  outline:none;
+}
+
+#searchBox:focus{
+  border-color:#1e3c72;
+}
 
 /* BACK BUTTON */
 .back{
@@ -86,6 +101,13 @@ header{
   margin:auto;
   padding:40px 20px;
 }
+  <input
+  type="text"
+  id="searchBox"
+  placeholder="Search quiz..."
+  onkeyup="applySearch()"
+/>
+
 
 /* QUIZ GRID */
 .grid{
@@ -188,19 +210,20 @@ header{
 </div>
 
 <script>
+  <script>
 let selectedYear = "";
 let selectedSubject = "";
 
 function setYear(year, btn){
   selectedYear = year;
   activate(btn);
-  filter();
+  applyFilters();
 }
 
 function setSubject(subject, btn){
   selectedSubject = subject;
   activate(btn);
-  filter();
+  applyFilters();
 }
 
 function activate(btn){
@@ -209,15 +232,30 @@ function activate(btn){
   btn.classList.add("active");
 }
 
-function filter(){
+function applySearch(){
+  applyFilters();
+}
+function applyFilters(){
+  const searchText =
+    document.getElementById("searchBox").value.toLowerCase();
+
   document.querySelectorAll(".quiz").forEach(q=>{
-    const name = q.innerText.toUpperCase();
-    const yearOk = !selectedYear || name.includes(selectedYear);
-    const subjectOk = !selectedSubject || name.includes(selectedSubject);
-    q.style.display = (yearOk && subjectOk) ? "block" : "none";
+    const text = q.innerText.toLowerCase();
+
+    const yearOk =
+      !selectedYear || text.includes(selectedYear.toLowerCase());
+
+    const subjectOk =
+      !selectedSubject || text.includes(selectedSubject.toLowerCase());
+
+    const searchOk =
+      !searchText || text.includes(searchText);
+
+    q.style.display =
+      (yearOk && subjectOk && searchOk) ? "block" : "none";
   });
 }
-</script>
+
 
 </body>
 </html>
