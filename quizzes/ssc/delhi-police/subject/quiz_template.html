@@ -832,7 +832,6 @@ let current = 0;
 let answers = {};
 let marked = {};
 let seconds = 0;              // Changed from placeholder
-let TOTAL_TIME_SECONDS = 0;   // CRITICAL: Changed from 'const' to 'let'
 let timerInterval = null;
 let isQuiz = true;
 let LAST_RESULT_HTML = "";
@@ -1491,6 +1490,7 @@ function restoreLatestResult() {
     document.getElementById("floatBar").style.display = "none";
   }
 }
+
 // Refresh Rank Button Logic (STRICT submitQuiz aligned + Time Taken)
 function refreshLatestRankOnDemand(btn) {
   btn.disabled = true;
@@ -1620,7 +1620,6 @@ function refreshLatestRankOnDemand(btn) {
       btn.textContent = "🔄 GET LIVE UPDATED RANK";
     });
 }
-
 
 // ===============================
 // 📜 HISTORY & ATTEMPT REVIEW
@@ -1954,8 +1953,8 @@ function init(){
       el("quizMainArea").style.display = "none";
       el("floatBar").style.display = "none";
       if(el("studentName")) el("studentName").style.display = "none";
-      
-                // Show Result
+
+               // Show Result
       const res = document.getElementById("results");
       res.innerHTML = data.resultHTML;
       res.style.display = "block";
@@ -1977,7 +1976,6 @@ function init(){
      }
     }
 
- 
   // 2. RESTORE PROGRESS (Resume Quiz)
   const savedName = localStorage.getItem("ssc_quiz_name");
   const nameInput = document.getElementById("studentName");
@@ -2151,5 +2149,3 @@ async function loadQuizData() {
 </script>
 </body>
 </html>
-
-
